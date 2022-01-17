@@ -54,9 +54,11 @@ class Transaction:
         self._tx_body.memo = memo
         self._tx_raw = tx.TxRaw()
 
-    def add_transfer(
-        self, recipient: str, amount: int, denom: str = "uatom", hrp: str = "cosmos"
-    ) -> None:
+    def add_transfer(self,
+                     recipient: str,
+                     amount: int,
+                     denom: str = "uatom",
+                     hrp: str = "cosmos") -> None:
         msg = transfer.MsgSend()
         msg.from_address = privkey_to_address(self._privkey, hrp=hrp)
         msg.to_address = recipient
@@ -71,17 +73,24 @@ class Transaction:
 
     def get_pushable(self) -> str:
         self._tx_raw.body_bytes = self._tx_body.SerializeToString()
-        self._tx_raw.auth_info_bytes = self._get_auth_info().SerializeToString()
+        self._tx_raw.auth_info_bytes = self._get_auth_info().SerializeToString(
+        )
         self._tx_raw.signatures.append(self._get_signatures())
         raw_tx = self._tx_raw.SerializeToString()
         tx_bytes = bytes(raw_tx)
         tx_b64 = base64.b64encode(tx_bytes).decode("utf-8")
-        return json.dumps(
-            {"jsonrpc": "2.0", "id": 1, "method": self._sync_mode, "params": {"tx": tx_b64}}
-        )
+        return json.dumps({
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": self._sync_mode,
+            "params": {
+                "tx": tx_b64
+            }
+        })
 
     def _get_signatures(self):
-        privkey = ecdsa.SigningKey.from_string(self._privkey, curve=ecdsa.SECP256k1)
+        privkey = ecdsa.SigningKey.from_string(self._privkey,
+                                               curve=ecdsa.SECP256k1)
         signature_compact = privkey.sign_deterministic(
             self._get_sign_doc().SerializeToString(),
             hashfunc=hashlib.sha256,
@@ -99,7 +108,8 @@ class Transaction:
 
     def _get_auth_info(self):
         _auth_info = tx.AuthInfo()
-        _auth_info.signer_infos.append(self._get_signer_infos(self._get_pubkey()))
+        _auth_info.signer_infos.append(
+            self._get_signer_infos(self._get_pubkey()))
         _auth_info.fee.gas_limit = self._gas
         _auth_info.fee.amount.append(self._get_fee())
         return _auth_info
@@ -132,5 +142,5 @@ class Transaction:
             return res
         else:
             raise Exception(
-                "Broadcact failed to run by returning code of {}".format(res.status_code)
-            )
+                "Broadcact failed to run by returning code of {}".format(
+                    res.status_code))
