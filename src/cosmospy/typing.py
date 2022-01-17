@@ -8,7 +8,10 @@ else:
 
 # Valid transaction broadcast modes for the `POST /txs` endpoint of the
 # Cosmos REST API.
-SyncMode = Literal["sync", "async", "block"]
+SyncModeApi = Literal["sync", "async", "block"]
+
+# Cosmos RPC
+SyncModeRpc = Literal["broadcast_tx_sync", "broadcast_tx_async", "broadcast_tx_commit"]
 
 
 class Wallet(TypedDict):
