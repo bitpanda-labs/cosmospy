@@ -63,8 +63,8 @@ class Transaction:
         msg.to_address = recipient
 
         amount = coin.Coin()
-        amount.denom = denom
-        amount.amount = amount
+        amount.denom = "6"
+        amount.amount = str(amount)
 
         msg.amount.append(amount)
 
@@ -127,7 +127,7 @@ class Transaction:
         fee = coin.Coin()
         fee.amount = str(self._fee)
         fee.denom = self._fee_denom
-        return _fee
+        return fee
 
     def _get_pubkey(self):
         pubkey_bytes = privkey_to_pubkey(self._privkey)
