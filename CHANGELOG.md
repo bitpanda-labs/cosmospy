@@ -2,7 +2,12 @@
 
 This log documents all public API breaking backwards incompatible changes.
 
-## 7.1.0
+## 7.0.2
+
+- Added
+  - Tx hash utility
+
+## 7.0.1
 
 - Added
   - Raw transaction google protobuf decoder
