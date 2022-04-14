@@ -1,4 +1,4 @@
-from cosmospy import Transaction
+from src.cosmospy import Transaction
 tx = Transaction(
     privkey=bytes.fromhex(
         "26d167d549a4b2b66f766b0d3f2bdbe1cd92708818c338ff453abde316a2bd59"

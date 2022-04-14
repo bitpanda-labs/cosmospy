@@ -3,19 +3,17 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
-from typing import Any
 
 import ecdsa
 
-from cosmospy._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
-from cosmospy.typing import SyncModeApi, SyncModeRpc
+from src.cosmospy._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
+from src.cosmospy.typing import SyncModeApi, SyncModeRpc
 
-from cosmospy.generated import  bank_tx_pb2 as bank_msg
-from cosmospy.generated import coin_pb2 as coin
-from cosmospy.generated import tx_pb2 as tx
-from cosmospy.generated import keys_pb2 as keys
-from cosmospy.generated import any_pb2 as any
-
+from src.cosmospy.generated import bank_tx_pb2 as bank_msg
+from src.cosmospy.generated import coin_pb2 as coin
+from src.cosmospy.generated import tx_pb2 as tx
+from src.cosmospy.generated import keys_pb2 as keys
+from src.cosmospy.generated import any_pb2 as any
 
 
 class Transaction:
@@ -56,7 +54,6 @@ class Transaction:
         self._sync_mode_rpc = sync_mode_rpc
         self._sync_mode_api = sync_mode_api
 
-
     def add_transfer(self, recipient: str, amount: int, denom: str = "uatom") -> None:
         msg = bank_msg.MsgSend()
         msg.from_address = privkey_to_address(self._privkey, hrp=self._hrp)
@@ -74,30 +71,19 @@ class Transaction:
         self._tx_body.messages.append(msg_any)
 
     def get_pushable_rpc(self) -> str:
-        self._tx_raw.body_bytes = self._tx_body.SerializeToString()
-        self._tx_raw.auth_info_bytes = self._get_auth_info().SerializeToString()
-        self._tx_raw.signatures.append(self._get_signatures())
-        raw_tx = self._tx_raw.SerializeToString()
-        tx_bytes = bytes(raw_tx)
-        tx_b64 = base64.b64encode(tx_bytes).decode("utf-8")
+        tx_b64 = self._get_b64_encoded()
         return json.dumps(
             {"jsonrpc": "2.0", "id": 1, "method": self._sync_mode_rpc, "params": {"tx": tx_b64}}
         )
 
     def get_pushable_api(self) -> str:
-        self._tx_raw.body_bytes = self._tx_body.SerializeToString()
-        self._tx_raw.auth_info_bytes = self._get_auth_info().SerializeToString()
-        self._tx_raw.signatures.append(self._get_signatures())
-        raw_tx = self._tx_raw.SerializeToString()
-        tx_bytes = bytes(raw_tx)
-        tx_b64 = base64.b64encode(tx_bytes).decode("utf-8")
+        tx_b64 = self._get_b64_encoded()
         return json.dumps(
             {
                 "tx_bytes": tx_b64,
                 "mode": self._sync_mode_rpc
             }
         )
-
 
     def _get_signatures(self):
         privkey = ecdsa.SigningKey.from_string(self._privkey, curve=ecdsa.SECP256k1)
@@ -143,3 +129,9 @@ class Transaction:
         signer_infos.mode_info.single.mode = 1
         return signer_infos
 
+    def _get_b64_encoded(self):
+        self._tx_raw.body_bytes = self._tx_body.SerializeToString()
+        self._tx_raw.auth_info_bytes = self._get_auth_info().SerializeToString()
+        self._tx_raw.signatures.append(self._get_signatures())
+        raw_tx = self._tx_raw.SerializeToString()
+        return base64.b64encode(bytes(raw_tx)).decode("utf-8")
