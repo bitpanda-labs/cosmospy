@@ -1,13 +1,14 @@
 import base64
-import hashlib
-from typing import Optional, List, TypedDict, Union
 from binascii import Error as B64DecodingError
+import hashlib
+from typing import List, Optional, TypedDict, Union
+
 from google.protobuf.message import DecodeError
 
-from src.cosmospy.generated.tx_pb2 import Tx, TxBody, Fee
-from src.cosmospy.generated.coin_pb2 import Coin
-from src.cosmospy.generated.bank_pb2 import Input, Output
-from src.cosmospy.generated.bank_tx_pb2 import MsgSend, MsgMultiSend
+from .generated.bank_pb2 import Input, Output
+from .generated.bank_tx_pb2 import MsgMultiSend, MsgSend
+from .generated.coin_pb2 import Coin
+from .generated.tx_pb2 import Fee, Tx, TxBody
 
 
 class DecodedAmount(TypedDict):

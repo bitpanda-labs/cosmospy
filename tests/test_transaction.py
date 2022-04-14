@@ -1,6 +1,7 @@
-from unittest.mock import Mock
-from ward import test
 from base64 import b64encode
+from unittest.mock import Mock
+
+from ward import test
 
 from src.cosmospy import Transaction
 

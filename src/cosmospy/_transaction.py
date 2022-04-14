@@ -6,14 +6,13 @@ import json
 
 import ecdsa
 
-from src.cosmospy._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
-from src.cosmospy.typing import SyncModeApi, SyncModeRpc
-
-from src.cosmospy.generated import bank_tx_pb2 as bank_msg
-from src.cosmospy.generated import coin_pb2 as coin
-from src.cosmospy.generated import tx_pb2 as tx
-from src.cosmospy.generated import keys_pb2 as keys
-from src.cosmospy.generated import any_pb2 as any
+from ._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
+from .generated import any_pb2 as any
+from .generated import bank_tx_pb2 as bank_msg
+from .generated import coin_pb2 as coin
+from .generated import keys_pb2 as keys
+from .generated import tx_pb2 as tx
+from .typing import SyncModeApi, SyncModeRpc
 
 
 class Transaction:
