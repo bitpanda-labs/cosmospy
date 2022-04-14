@@ -48,6 +48,7 @@ class Transaction:
         self._fee_denom = fee_denom
         self._gas = gas
         self._memo = memo
+        self._tx_body.memo = memo
         self._chain_id = chain_id
         self._hrp = hrp
         self._sync_mode_rpc = sync_mode_rpc
