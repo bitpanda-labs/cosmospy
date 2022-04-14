@@ -52,11 +52,6 @@ known_first_party = ["cosmospy", "tests"]
 profile = "black"
 line_length = 99
 
-[tool.poetry]
-name = "poetry shell"
-version = "0"
-description = "poetry shell"
-authors = ["Taneli Hukkinen"]
 
 [tool.ward]
 path = ["tests"]
