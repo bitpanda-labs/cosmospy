@@ -55,7 +55,7 @@ def _():
 
 @test("make transaction pushable to the RPC API")  # type: ignore[no-redef]
 def _():
-    expected_pushable_tx = '{"jsonrpc": "2.0", "id": 1, "method": "broadcast_tx_sync", "params": {"tx": "CpMBCpABChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEnAKLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGhAKATYSC2Rlbm9tOiAiNiIKEmUKTgpGCh8vY29zbW9zLmNyeXB0by5zZWNwMjU2azEuUHViS2V5EiMKIQOPbIwndxLpfmV8qH+6juOtFGju96La5skh8kzUi1vl5xIECgIIARITCg0KBXVhdG9tEgQxMDAwEIihAhpAuE+Ia7afGqFbzE1+XyvyBBwletoepk0mhNgWr+xSBbcxty6WsaJBmSGImvVyqyoVyUFZgiWQzWxuTXVICyetsA=="}}'  # noqa: E501
+    expected_pushable_tx = '{"jsonrpc": "2.0", "id": 1, "method": "broadcast_tx_sync", "params": {"tx": "Co4BCosBChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEmsKLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGgsKATYSBjM4NzAwMBJlCk4KRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEDj2yMJ3cS6X5lfKh/uo7jrRRo7vei2ubJIfJM1Itb5ecSBAoCCAESEwoNCgV1YXRvbRIEMTAwMBCIoQIaQD1O6VHiP7b0nKTNYvF0uWMN4/QQX49nYwTd6IcPj6JdWyxebpU5Vu1bgrTVrfM52kqbnvxL9YV6mTDS5aDI9IU="}}'  # noqa: E501
     tx = create_tx()
     pushable_tx = tx.get_pushable_rpc()
     assert pushable_tx == expected_pushable_tx
@@ -63,7 +63,7 @@ def _():
 
 @test("make transaction pushable to the HTTP API")  # type: ignore[no-redef]
 def _():
-    expected_pushable_tx = '{"tx_bytes": "CpMBCpABChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEnAKLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGhAKATYSC2Rlbm9tOiAiNiIKEmUKTgpGCh8vY29zbW9zLmNyeXB0by5zZWNwMjU2azEuUHViS2V5EiMKIQOPbIwndxLpfmV8qH+6juOtFGju96La5skh8kzUi1vl5xIECgIIARITCg0KBXVhdG9tEgQxMDAwEIihAhpAuE+Ia7afGqFbzE1+XyvyBBwletoepk0mhNgWr+xSBbcxty6WsaJBmSGImvVyqyoVyUFZgiWQzWxuTXVICyetsA==", "mode": "broadcast_tx_sync"}'  # noqa: E501
+    expected_pushable_tx = '{"tx_bytes": "Co4BCosBChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEmsKLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGgsKATYSBjM4NzAwMBJlCk4KRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEDj2yMJ3cS6X5lfKh/uo7jrRRo7vei2ubJIfJM1Itb5ecSBAoCCAESEwoNCgV1YXRvbRIEMTAwMBCIoQIaQD1O6VHiP7b0nKTNYvF0uWMN4/QQX49nYwTd6IcPj6JdWyxebpU5Vu1bgrTVrfM52kqbnvxL9YV6mTDS5aDI9IU=", "mode": "broadcast_tx_sync"}'  # noqa: E501
     tx = create_tx()
     pushable_tx = tx.get_pushable_api()
     assert pushable_tx == expected_pushable_tx

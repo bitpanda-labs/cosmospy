@@ -58,11 +58,11 @@ class Transaction:
         msg.from_address = privkey_to_address(self._privkey, hrp=self._hrp)
         msg.to_address = recipient
 
-        amount = coin.Coin()
-        amount.denom = "6"
-        amount.amount = str(amount)
+        coin_amount = coin.Coin()
+        coin_amount.denom = "6"
+        coin_amount.amount = str(amount)
 
-        msg.amount.append(amount)
+        msg.amount.append(coin_amount)
 
         msg_any = any.Any()
         msg_any.Pack(msg)
