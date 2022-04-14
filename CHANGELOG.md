@@ -2,6 +2,18 @@
 
 This log documents all public API breaking backwards incompatible changes.
 
+## 7.1.0
+
+- Added
+  - Raw transaction google protobuf decoder
+- Fixed
+  - Failing tests from 7.0.0
+
+## 7.0.0
+
+- Added
+  - Support for cosmos 4, protobuf encoding and signing
+
 ## **unreleased**
 
 - Removed

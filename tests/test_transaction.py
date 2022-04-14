@@ -1,8 +1,9 @@
+from base64 import b64encode
 from unittest.mock import Mock
 
 from ward import test
 
-from cosmospy import Transaction
+from src.cosmospy import Transaction
 
 
 @test("sign transaction")
@@ -45,17 +46,30 @@ def _():
     tx._get_sign_message = Mock(return_value=unordered_sign_message)
 
     expected_signature = (
-        "YjJhlAf7aCnUtLyBNDp9e6LKuNgV7hJC3rmm0Wro5nBsIPVtWzjuobsp/AhR5Kht+HcRF2zBq4AfoNQMIbY6fw=="
+        "vqjcPpVDEA17fUiLQbTqPaXoIxilhfigDx4KNG546n5vQUz9mc4/Sztk0t3saw+iYkoE3MRLSbO9S0BcQQ0D7A=="
     )
 
-    actual_signature = tx._sign()
+    actual_signature = b64encode(tx._get_signatures()).decode()
     assert actual_signature == expected_signature
+
+
+@test("make transaction pushable to the RPC API")  # type: ignore[no-redef]
+def _():
+    expected_pushable_tx = '{"jsonrpc": "2.0", "id": 1, "method": "broadcast_tx_sync", "params": {"tx": "CpIBCo8BChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEm8KLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGg8KBXVhdG9tEgYzODcwMDASZQpOCkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohA49sjCd3Eul+ZXyof7qO460UaO73otrmySHyTNSLW+XnEgQKAggBEhMKDQoFdWF0b20SBDEwMDAQiKECGkDfbtF0GoJzi9S1YVOjgGZohl+64x5A2L56iHZQJm7HUgwSCDxdeNZmif2RaBMd7APdv+h6wWoTES9RjEHKYgg4"}}'  # noqa: E501
+    tx = create_tx()
+    pushable_tx = tx.get_pushable_rpc()
+    assert pushable_tx == expected_pushable_tx
 
 
 @test("make transaction pushable to the HTTP API")  # type: ignore[no-redef]
 def _():
-    expected_pushable_tx = '{"tx":{"msg":[{"type":"cosmos-sdk/MsgSend","value":{"from_address":"cosmos1lgharzgds89lpshr7q8kcmd2esnxkfpwvuz5tr","to_address":"cosmos103l758ps7403sd9c0y8j6hrfw4xyl70j4mmwkf","amount":[{"denom":"uatom","amount":"387000"}]}}],"fee":{"gas":"37000","amount":[{"denom":"uatom","amount":"1000"}]},"memo":"","signatures":[{"signature":"chbQMmrg18ZQSt3q3HzW8S8pMyGs/TP/WIbbCyKFd5IiReUY/xJB2yRDEtF92yYBjxEU02z9JNE7VCQmmxWdQw==","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"A49sjCd3Eul+ZXyof7qO460UaO73otrmySHyTNSLW+Xn"},"account_number":"11335","sequence":"0"}]},"mode":"sync"}'  # noqa: E501
+    expected_pushable_tx = '{"tx_bytes": "CpIBCo8BChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEm8KLWNvc21vczFsZ2hhcnpnZHM4OWxwc2hyN3E4a2NtZDJlc254a2Zwd3Z1ejV0chItY29zbW9zMTAzbDc1OHBzNzQwM3NkOWMweThqNmhyZnc0eHlsNzBqNG1td2tmGg8KBXVhdG9tEgYzODcwMDASZQpOCkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohA49sjCd3Eul+ZXyof7qO460UaO73otrmySHyTNSLW+XnEgQKAggBEhMKDQoFdWF0b20SBDEwMDAQiKECGkDfbtF0GoJzi9S1YVOjgGZohl+64x5A2L56iHZQJm7HUgwSCDxdeNZmif2RaBMd7APdv+h6wWoTES9RjEHKYgg4", "mode": "broadcast_tx_sync"}'  # noqa: E501
+    tx = create_tx()
+    pushable_tx = tx.get_pushable_api()
+    assert pushable_tx == expected_pushable_tx
 
+
+def create_tx():
     _tx_total_cost = 388000
     fee = 1000
     amount = _tx_total_cost - fee
@@ -69,5 +83,4 @@ def _():
         chain_id="cosmoshub-2",
     )
     tx.add_transfer(recipient="cosmos103l758ps7403sd9c0y8j6hrfw4xyl70j4mmwkf", amount=amount)
-    pushable_tx = tx.get_pushable()
-    assert pushable_tx == expected_pushable_tx
+    return tx

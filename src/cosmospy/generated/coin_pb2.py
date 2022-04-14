@@ -7,14 +7,14 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-
+from .cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from .gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ncoin.proto\x12\x13\x63osmos.base.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\"F\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12)\n\x06\x61mount\x18\x02 \x01(\tB\x19\xd2\xb4-\ncosmos.Int\xda\xde\x1f\x03Int\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"I\n\x07\x44\x65\x63\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12)\n\x06\x61mount\x18\x02 \x01(\tB\x19\xd2\xb4-\ncosmos.Dec\xda\xde\x1f\x03\x44\x65\x63\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"2\n\x08IntProto\x12&\n\x03int\x18\x01 \x01(\tB\x19\xd2\xb4-\ncosmos.Int\xda\xde\x1f\x03Int\xc8\xde\x1f\x00\"2\n\x08\x44\x65\x63Proto\x12&\n\x03\x64\x65\x63\x18\x01 \x01(\tB\x19\xd2\xb4-\ncosmos.Dec\xda\xde\x1f\x03\x44\x65\x63\xc8\xde\x1f\x00\x42,Z\"github.com/cosmos/cosmos-sdk/types\xd8\xe1\x1e\x00\x80\xe2\x1e\x00\x62\x06proto3')
 

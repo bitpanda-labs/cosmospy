@@ -7,18 +7,18 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-from cosmospy.generated.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-import cosmospy.generated.multisig_pb2 as multisig__pb2
-import cosmospy.generated.coin_pb2 as coin__pb2
-import cosmospy.generated.signing_pb2 as signing__pb2
-import cosmospy.generated.any_pb2 as any__pb2
-from cosmospy.generated.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-
+from . import any_pb2 as any__pb2
+from . import coin_pb2 as coin__pb2
+from . import multisig_pb2 as multisig__pb2
+from . import signing_pb2 as signing__pb2
+from .cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from .gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x08tx.proto\x12\x11\x63osmos.tx.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x0emultisig.proto\x1a\ncoin.proto\x1a\rsigning.proto\x1a\tany.proto\x1a\x19\x63osmos_proto/cosmos.proto\"q\n\x02Tx\x12\'\n\x04\x62ody\x18\x01 \x01(\x0b\x32\x19.cosmos.tx.v1beta1.TxBody\x12.\n\tauth_info\x18\x02 \x01(\x0b\x32\x1b.cosmos.tx.v1beta1.AuthInfo\x12\x12\n\nsignatures\x18\x03 \x03(\x0c\"H\n\x05TxRaw\x12\x12\n\nbody_bytes\x18\x01 \x01(\x0c\x12\x17\n\x0f\x61uth_info_bytes\x18\x02 \x01(\x0c\x12\x12\n\nsignatures\x18\x03 \x03(\x0c\"`\n\x07SignDoc\x12\x12\n\nbody_bytes\x18\x01 \x01(\x0c\x12\x17\n\x0f\x61uth_info_bytes\x18\x02 \x01(\x0c\x12\x10\n\x08\x63hain_id\x18\x03 \x01(\t\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x04 \x01(\x04\"\xb1\x01\n\x10SignDocDirectAux\x12\x12\n\nbody_bytes\x18\x01 \x01(\x0c\x12(\n\npublic_key\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x10\n\x08\x63hain_id\x18\x03 \x01(\t\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x04 \x01(\x04\x12\x10\n\x08sequence\x18\x05 \x01(\x04\x12#\n\x03tip\x18\x06 \x01(\x0b\x32\x16.cosmos.tx.v1beta1.Tip\"\xc7\x01\n\x06TxBody\x12&\n\x08messages\x18\x01 \x03(\x0b\x32\x14.google.protobuf.Any\x12\x0c\n\x04memo\x18\x02 \x01(\t\x12\x16\n\x0etimeout_height\x18\x03 \x01(\x04\x12\x30\n\x11\x65xtension_options\x18\xff\x07 \x03(\x0b\x32\x14.google.protobuf.Any\x12=\n\x1enon_critical_extension_options\x18\xff\x0f \x03(\x0b\x32\x14.google.protobuf.Any\"\x89\x01\n\x08\x41uthInfo\x12\x33\n\x0csigner_infos\x18\x01 \x03(\x0b\x32\x1d.cosmos.tx.v1beta1.SignerInfo\x12#\n\x03\x66\x65\x65\x18\x02 \x01(\x0b\x32\x16.cosmos.tx.v1beta1.Fee\x12#\n\x03tip\x18\x03 \x01(\x0b\x32\x16.cosmos.tx.v1beta1.Tip\"x\n\nSignerInfo\x12(\n\npublic_key\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12.\n\tmode_info\x18\x02 \x01(\x0b\x32\x1b.cosmos.tx.v1beta1.ModeInfo\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\xb5\x02\n\x08ModeInfo\x12\x34\n\x06single\x18\x01 \x01(\x0b\x32\".cosmos.tx.v1beta1.ModeInfo.SingleH\x00\x12\x32\n\x05multi\x18\x02 \x01(\x0b\x32!.cosmos.tx.v1beta1.ModeInfo.MultiH\x00\x1a;\n\x06Single\x12\x31\n\x04mode\x18\x01 \x01(\x0e\x32#.cosmos.tx.signing.v1beta1.SignMode\x1a{\n\x05Multi\x12\x41\n\x08\x62itarray\x18\x01 \x01(\x0b\x32/.cosmos.crypto.multisig.v1beta1.CompactBitArray\x12/\n\nmode_infos\x18\x02 \x03(\x0b\x32\x1b.cosmos.tx.v1beta1.ModeInfoB\x05\n\x03sum\"\xc9\x01\n\x03\x46\x65\x65\x12[\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\'\n\x05payer\x18\x03 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12)\n\x07granter\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"\x8c\x01\n\x03Tip\x12[\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12(\n\x06tipper\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"\xb1\x01\n\rAuxSignerData\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x35\n\x08sign_doc\x18\x02 \x01(\x0b\x32#.cosmos.tx.v1beta1.SignDocDirectAux\x12\x31\n\x04mode\x18\x03 \x01(\x0e\x32#.cosmos.tx.signing.v1beta1.SignMode\x12\x0b\n\x03sig\x18\x04 \x01(\x0c\x42\'Z%github.com/cosmos/cosmos-sdk/types/txb\x06proto3')
 
