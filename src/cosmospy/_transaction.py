@@ -59,7 +59,7 @@ class Transaction:
         msg.to_address = recipient
 
         coin_amount = coin.Coin()
-        coin_amount.denom = "6"
+        coin_amount.denom = denom
         coin_amount.amount = str(amount)
 
         msg.amount.append(coin_amount)
