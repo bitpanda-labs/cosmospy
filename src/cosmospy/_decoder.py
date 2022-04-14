@@ -108,7 +108,8 @@ def _decode_fee(fee: Fee) -> DecodedFee:
     )
 
 
-def _get_tx_hash(tx_bytes: bytes) -> str:
+def get_tx_hash(b64_tx: str) -> str:
+    tx_bytes = base64.b64decode(b64_tx)
     return hashlib.sha256(tx_bytes).hexdigest()
 
 
@@ -124,7 +125,7 @@ def decode_transaction(b64_tx: str) -> DecodedTransaction:
         raise ValueError(f"Failed to decode transaction. Please provide a valid cosmos transaction. Error: {e}")
 
     return DecodedTransaction(
-        id=_get_tx_hash(tx_bytes),
+        id=get_tx_hash(b64_tx),
         fee=_decode_fee(transaction.auth_info.fee),
         body=_decode_body(transaction.body),
         signatures=transaction.signatures,

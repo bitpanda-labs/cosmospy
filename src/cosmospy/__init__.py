@@ -3,6 +3,7 @@ __version__ = "7.0.1"  # DO NOT EDIT THIS LINE MANUALLY. LET bump2version UTILIT
 from hdwallets import BIP32DerivationError as BIP32DerivationError  # noqa: F401
 
 from ._decoder import decode_transaction as decode_transaction
+from ._decoder import get_tx_hash as get_tx_hash
 from ._transaction import Transaction as Transaction  # noqa: F401
 from ._wallet import generate_wallet as generate_wallet  # noqa: F401
 from ._wallet import privkey_to_address as privkey_to_address  # noqa: F401
