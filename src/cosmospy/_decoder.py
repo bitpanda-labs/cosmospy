@@ -1,7 +1,8 @@
 import base64
 from binascii import Error as B64DecodingError
 import hashlib
-from typing import List, Optional, TypedDict, Union
+import sys
+from typing import List, Optional, Union
 
 from google.protobuf.message import DecodeError
 
@@ -9,6 +10,12 @@ from .generated.bank_pb2 import Input, Output
 from .generated.bank_tx_pb2 import MsgMultiSend, MsgSend
 from .generated.coin_pb2 import Coin
 from .generated.tx_pb2 import Fee, Tx, TxBody
+
+if sys.version_info < (3, 8):
+    from typing_extensions import TypedDict
+else:
+    from typing import TypedDict
+
 
 
 class DecodedAmount(TypedDict):
