@@ -4,6 +4,11 @@ This log documents all public API breaking backwards incompatible changes.
 
 ## 7.0.2
 
+- Fixed
+  - Make project compatible with python 3.7
+
+## 7.0.2
+
 - Added
   - Tx hash utility
 
