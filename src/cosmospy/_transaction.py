@@ -73,7 +73,7 @@ class Transaction:
         self._tx_body.messages.append(msg_any)
 
     def add_multi_transfer(self, inputs: List[dict], outputs: List[dict], denom: str = "uatom") -> None:
-        msg = bank_msg.MsgMultiSend
+        msg = bank_msg.MsgMultiSend()
         for inp in inputs:
             inp_proto = bank.Input()
             inp_proto.address = inp["address"]
