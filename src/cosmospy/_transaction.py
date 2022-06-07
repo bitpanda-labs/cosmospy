@@ -3,12 +3,14 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+from typing import List
 
 import ecdsa
 
 from ._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
 from .generated import any_pb2 as any
 from .generated import bank_tx_pb2 as bank_msg
+from .generated import bank_pb2 as bank
 from .generated import coin_pb2 as coin
 from .generated import keys_pb2 as keys
 from .generated import tx_pb2 as tx
@@ -68,6 +70,30 @@ class Transaction:
         msg_any = any.Any()
         msg_any.Pack(msg)
         msg_any.type_url = "/cosmos.bank.v1beta1.MsgSend"
+        self._tx_body.messages.append(msg_any)
+
+    def add_multi_transfer(self, inputs: List[dict], outputs: List[dict], denom: str = "uatom") -> None:
+        msg = bank_msg.MsgMultiSend
+        for inp in inputs:
+            inp_proto = bank.Input()
+            inp_proto.address = inp["address"]
+            coin_amount = coin.Coin()
+            coin_amount.denom = denom
+            coin_amount.amount = str(inp["amount"])
+            inp_proto.coins.append(coin_amount)
+            msg.inputs.append(inp_proto)
+        for out in outputs:
+            out_proto = bank.Output()
+            out_proto.address = out["address"]
+            coin_amount = coin.Coin()
+            coin_amount.denom = denom
+            coin_amount.amount = str(out["amount"])
+            out_proto.coins.append(coin_amount)
+            msg.outputs.append(out_proto)
+
+        msg_any = any.Any()
+        msg_any.Pack(msg)
+        msg_any.type_url = "/cosmos.bank.v1beta1.MsgMultiSend"
         self._tx_body.messages.append(msg_any)
 
     def get_pushable_rpc(self) -> str:
